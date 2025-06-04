@@ -13,7 +13,7 @@ public class Usuario extends Pessoa {
 
     public Usuario(int id, String nome, String email, String senha) {
         super(id, nome, email, senha);
-        this.alertasCriados = new ArrayList<>();
+        this.alertasCriados = new ArrayList<>();// nao faz sentido no contrutor ter os alertas e comentarios criados do usuario(hg)
         this.comentarios = new ArrayList<>();
     }
 
