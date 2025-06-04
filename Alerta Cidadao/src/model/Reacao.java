@@ -1,13 +1,13 @@
 package model;
 
 import Enums.TipoReacao;
-import java.util.Date; // Ou LocalDateTime
+import java.util.Date; 
 
 public class Reacao {
     private int id;
     private TipoReacao tipo;
     private Usuario autor;
-    private Date data; // Ou LocalDateTime
+    private Date data; 
 
     public Reacao(int id, TipoReacao tipo, Usuario autor, Date data) {
         this.id = id;
