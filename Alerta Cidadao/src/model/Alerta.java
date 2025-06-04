@@ -1,19 +1,19 @@
 package model;
 
-
-// import com.seuprojeto.alertacidadao.enums.AlertType;
-// import com.seuprojeto.alertacidadao.enums.TipoReacao;
-// import com.seuprojeto.alertacidadao.interfaces.I_Reagivel;
-// import com.seuprojeto.alertacidadao.interfaces.I_Votavel;
-
+ import Enums.AlertType;
+ import Enums.TipoReacao;
+// import interfaces.I_Reagivel;
+// import interfaces.I_Votavel;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date; // Ou LocalDateTime
+import java.util.Date; 
 import java.util.List;
+
+
 
 public class Alerta implements I_Votavel, I_Reagivel {
     private int id;
-    private AlertType tipo; // Enum no lugar de String para consistência
+    private AlertType tipo; 
     private String descricao;
     private Date data;
     private LocalDateTime hora;
@@ -30,7 +30,7 @@ public class Alerta implements I_Votavel, I_Reagivel {
         this.descricao = descricao;
         this.data = data;
         this.hora = hora;
-        this.localizacao = localizacao;
+        this.localizacao = new Localizacao[];
         this.criador = criador;
         this.votacoes = new ArrayList<>();
         this.reacoes = new ArrayList<>();
@@ -38,7 +38,7 @@ public class Alerta implements I_Votavel, I_Reagivel {
         this.estaAtivo = true; // Alerta é ativo por padrão ao ser criado
     }
 
-    // Getters para todos os atributos
+    // Gets
     public int getId() { return id; }
     public AlertType getTipo() { return tipo; }
     public String getDescricao() { return descricao; }
@@ -55,7 +55,7 @@ public class Alerta implements I_Votavel, I_Reagivel {
         this.comentarios.add(comentario);
     }
 
-    // --- Implementação das Interfaces ---
+    // Implementação das Interfaces 
 
     @Override
     public void adicionarVotacao(Votacao v) {
@@ -93,7 +93,7 @@ public class Alerta implements I_Votavel, I_Reagivel {
             if (confiabilidade < 0.2 && (votosAtivos + votosResolvidos > 5)) { // Exemplo: se muitos votaram resolvido
                 this.estaAtivo = false;
             } else {
-                this.estaAtivo = true; // Mantém ativo ou volta a ser ativo
+                this.estaAtivo = true; 
             }
             return confiabilidade;
         }
