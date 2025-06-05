@@ -12,10 +12,21 @@ interface I_Reagivel {
     +getContagemReacoes(): int
 }
 
+
 ' Enum
 enum TipoReacao {
     LIKE
     DISLIKE
+}
+
+
+enum TipoAlerta {
+    TIROTEIO
+    ARRASTAO
+    OPERACAO_POLICIAL
+    ASSALTO
+    FURTO
+    OUTRO
 }
 
 ' abstrata
@@ -63,6 +74,7 @@ class Comentario implements I_Reagivel {
     +getContagemReacoes(): int
 }
 
+
 class Reacao {
     -id: int
     -tipo: TipoReacao
@@ -86,6 +98,8 @@ class Localizacao {
     -endereco: String
     -numero: int
 }
+
+
 
 ' Relacionamentos
 Usuario "1" -- "0..*" Alerta : cria >
