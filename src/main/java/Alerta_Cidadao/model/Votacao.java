@@ -19,12 +19,13 @@ public class Votacao {
         this.data = data;
         this.hora = hora;
         this.aindaAcontecendo = true;//por patrao comeca true
-        this.voto = null ;
+        this.voto = voto ;
     }
 
-    public Votacao(Boolean voto){
+    public Votacao(Usuario usuario,Boolean voto){
+        this.usuario = usuario;
         this.voto = voto;
-        this.aindaAcontecendo = voto; // CORREÇÃO: se o voto é 'true', o evento acontece.
+        this.aindaAcontecendo = voto;
     }
 
     public int getId() {

@@ -8,6 +8,7 @@ import Alerta_Cidadao.interfaces.I_Reagivel;
 import java.sql.Time;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Alerta implements I_Reagivel {
@@ -60,16 +61,22 @@ public class Alerta implements I_Reagivel {
         for(Votacao v : votacoes) {
             if(v.isAindaAcontecendo()) {
                 votosAtivos++;}
-        }return (double) votosAtivos / votacoes.size() * 100.0;
+        }
+            double resp = (double) votosAtivos / votacoes.size() * 100.0;
+        if (resp < 40 ){System.out.println("O " + getTipo() + " provavelmente ja terminou.");}
+        return resp;
     }
 
 
-    public void receberVoto(Boolean voto) {
-        if (estaAtivo) {
-            Votacao vot;
-            vot = new Votacao(voto);
-            votacoes.add(vot);
+    public void receberVoto(Usuario usuarioQueEstaVotando, Boolean voto) {
+        if (!this.estaAtivo) {
+            System.out.println("Votação encerrada! Este alerta não está mais ativo.");
+            return;
         }
+
+        System.out.println(usuarioQueEstaVotando.getNome() + " votou no alerta.");
+        Votacao novoVoto = new Votacao(usuarioQueEstaVotando, voto);
+        this.votacoes.add(novoVoto);
     }
 
     public void adicionarComentario(Comentario comentario) {
