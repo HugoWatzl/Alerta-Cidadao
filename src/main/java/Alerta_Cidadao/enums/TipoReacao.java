@@ -1,6 +1,6 @@
 package Alerta_Cidadao.enums;
 
-public enum TipoReacao {TIROTEIO,
+public enum TipoReacao {
     LIKE,
     DESLIKE
 }
