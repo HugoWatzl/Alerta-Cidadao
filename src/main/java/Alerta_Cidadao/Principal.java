@@ -1,9 +1,7 @@
 package Alerta_Cidadao;
 import Alerta_Cidadao.model.*;
 import Alerta_Cidadao.enums.*;
-import Alerta_Cidadao.interfaces.I_Reagivel;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.sql.Date;
@@ -13,10 +11,10 @@ public class Principal {
     public static void main(String[] args){
 
 
-        Usuario criadorDoAlerta = new Usuario(1, "Hugo farias", "hg@email.com", "senha1");
-        Usuario outroUsuario = new Usuario(2, "Eduardo Jacob", "dusts@gmail.com", "senha2");
+        Usuario criadorDoAlerta = new Usuario();
+        Usuario outroUsuario = new Usuario();
         Localizacao localDoFato = new Localizacao(154, -22.90, -43.17, "Rua Principal", 5);
-        Usuario CriadorAlerta2 = new Usuario(3, "Augusto amorim", "AUg@email.com", "senha3");
+        Usuario CriadorAlerta2 = new Usuario();
         Localizacao Local2 = new Localizacao(23,-33.12, -86.01, "Av Romero", 1002);
 
         //  alerta
@@ -35,7 +33,7 @@ public class Principal {
         Alerta a2 = new Alerta(
                 30,
                 TipoAlerta.ARRASTAO,
-                "Arrastao na praia do arpoador/ipanema",
+                "Arrastao na praia do arpoador/ipanema posto 8",
                 Date.valueOf(LocalDate.now()),
                 Time.valueOf(LocalTime.now()),
                 Local2,
@@ -43,7 +41,7 @@ public class Principal {
         );
 
 
-      // COMENTARIOS
+      // COMENTARIO
         Comentario c1 = new Comentario(
                 731,
                 outroUsuario,

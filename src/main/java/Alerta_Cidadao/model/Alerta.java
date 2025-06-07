@@ -39,18 +39,39 @@ public class Alerta implements I_Reagivel {
         this.estaAtivo = true; // Alerta é ativo  ao ser criado
     }
 
+    public Alerta() {
 
-        public int getId() { return id; }
-        public TipoAlerta getTipo() { return tipo; }
-        public String getDescricao() { return descricao; }
-        public Date getData() { return data; }
-        public Time getHora() { return hora; }
-        public Localizacao getLocalizacao() { return localizacao; }
-        public Usuario getCriador() { return criador; }
-        public List<Votacao> getVotacoes() { return votacoes; }
-        public List<Reacao> getReacoes() { return reacoes; }
-        public List<Comentario> getComentarios() { return comentarios; }
-        public boolean isEstaAtivo() { return estaAtivo; }
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTipo(TipoAlerta tipo) {
+        this.tipo = tipo;
+    }
+
+
+    public void setDescricao(String descricao) {this.descricao = descricao;}
+    public void setData(Date data) {this.data = data;}
+    public void setHora(Time hora) {this.hora = hora;}
+    public void setLocalizacao(Localizacao localizacao) {this.localizacao = localizacao;}
+    public void setCriador(Usuario criador) {this.criador = criador;}
+    public void setVotacoes(List<Votacao> votacoes) {this.votacoes = votacoes;}
+    public void setReacoes(List<Reacao> reacoes) {this.reacoes = reacoes;}
+    public void setComentarios(List<Comentario> comentarios) {this.comentarios = comentarios;}
+    public void setEstaAtivo(boolean estaAtivo) {this.estaAtivo = estaAtivo;}
+    public int getId() { return id; }
+    public TipoAlerta getTipo() { return tipo; }
+    public String getDescricao() { return descricao; }
+    public Date getData() { return data; }
+    public Time getHora() { return hora; }
+    public Localizacao getLocalizacao() { return localizacao; }
+    public Usuario getCriador() { return criador; }
+    public List<Votacao> getVotacoes() { return votacoes; }
+    public List<Reacao> getReacoes() { return reacoes; }
+    public List<Comentario> getComentarios() { return comentarios; }
+    public boolean isEstaAtivo() { return estaAtivo; }
 
     public double calcularConfiabilidade() {
         if (votacoes.isEmpty()) {//isempty verificva se a lista esta fazia

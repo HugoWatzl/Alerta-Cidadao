@@ -3,7 +3,6 @@ package Alerta_Cidadao.model;
 import Alerta_Cidadao.enums.TipoReacao;
 import Alerta_Cidadao.interfaces.I_Reagivel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
@@ -13,21 +12,66 @@ public class Comentario implements I_Reagivel {
     private String texto;
     private Date dataHora;
     private List<Reacao> reacoes;
+    private int IdAlerta;
 
     public Comentario(int id, Usuario usuario, String texto, Date dataHora) {
         this.id = id;
         this.usuario = usuario;
         this.texto = texto;
         this.dataHora = dataHora;
-        this.reacoes = new ArrayList<>();
+        this.IdAlerta = IdAlerta;
+    }
+    public Comentario(){
+
     }
 
 
-    public int getId() { return id; }
-    public Usuario getUsuario() { return usuario; }
-    public String getTexto() { return texto; }
-    public Date getDataHora() { return dataHora; }
-    public List<Reacao> getReacoes() { return reacoes; }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public Date getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(Date dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    public List<Reacao> getReacoes() {
+        return reacoes;
+    }
+
+    public void setReacoes(List<Reacao> reacoes) {
+        this.reacoes = reacoes;
+    }
+    public int getIdAlerta() {
+        return IdAlerta;
+    }
+
+    public void setIdAlerta(int idAlerta) {
+        IdAlerta = idAlerta;
+    }
 
     @Override
     public void receberReacao(Reacao r) {
@@ -44,4 +88,7 @@ public class Comentario implements I_Reagivel {
         return contador;
     }
 
-}
+
+    }
+
+
