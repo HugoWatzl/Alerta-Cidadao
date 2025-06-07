@@ -1,11 +1,7 @@
 @startuml
 title "Diagrama de classes do Alerta Cidadão"
 
-' Interfaces
-interface I_Votavel {
-    +receberVoto(aindaAcontecendo: boolean)
-    +calcularConfiabilidade(): double
-}
+' Interface
 
 interface I_Reagivel {
     +receberReacao(r: Reacao)
@@ -47,7 +43,7 @@ class Usuario extends Pessoa {
     +adicionarComentario(c: Comentario)
 }
 
-class Alerta implements I_Votavel, I_Reagivel {
+class Alerta implements I_Reagivel {
     -id: int
     -tipo: String
     -descricao: String
