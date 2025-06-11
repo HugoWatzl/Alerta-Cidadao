@@ -2,90 +2,124 @@ package DAO;
 
 import Alerta_Cidadao.model.Usuario;
 import java.sql.*;
-import BD.ConnectionFactory;
+import java.util.ArrayList;
 
+public class UsuarioDAO implements BaseDAO {
 
-public class UsuarioDAO {
+    private Connection connection;
 
-    private final ConnectionFactory connectionFactory;
-
-    public UsuarioDAO() {
-        this.connectionFactory = new ConnectionFactory();
+    public UsuarioDAO(Connection connection) {
+        this.connection = connection;
     }
 
+    @Override
+    public void salvar(Object objeto) {
+        if (!(objeto instanceof Usuario)) {
+            throw new IllegalArgumentException("Objeto deve ser do tipo Usuario.");
+        }
+        Usuario usuario = (Usuario) objeto;
 
-    public void salvar(Usuario usuario) {
         String sql = "INSERT INTO tb_usuario (nome, email, senha) VALUES (?, ?, ?)";
-        try (Connection conn = connectionFactory.recuperaConexao();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
+        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getEmail());
             ps.setString(3, usuario.getSenha());
             ps.executeUpdate();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                usuario.setId(rs.getInt(1));
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    usuario.setId(rs.getInt(1));
+                }
             }
-
         } catch (SQLException e) {
-            System.err.println("Erro ao salvar usuário: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
-
-    public Usuario buscarPorId(int id) {
+    @Override
+    public Object buscarPorId(int id) {
         String sql = "SELECT id, nome, email, senha FROM tb_usuario WHERE id = ?";
-        Usuario usuario = null;
-        try (Connection conn = connectionFactory.recuperaConexao();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
 
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
+
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                usuario = new Usuario();
+                Usuario usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setEmail(rs.getString("email"));
                 usuario.setSenha(rs.getString("senha"));
+                return usuario;
             }
-
         } catch (SQLException e) {
-            System.err.println("Erro ao buscar usuário: " + e.getMessage());
+            throw new RuntimeException(e);
         }
-        return usuario;
+        return null;
     }
 
+    @Override
+    public ArrayList<Object> listarTodosLazyLoading() {
+        ArrayList<Object> usuarios = new ArrayList<>();
+        String sql = "SELECT id, nome, email, senha FROM tb_usuario";
 
-    public void atualizar(Usuario usuario) {
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setSenha(rs.getString("senha"));
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return usuarios;
+    }
+
+    @Override
+    public ArrayList<Object> listarTodosEagerLoading() {
+        return listarTodosLazyLoading();
+    }
+
+    @Override
+    public void atualizar(Object objeto) {
+        if (!(objeto instanceof Usuario)) {
+            throw new IllegalArgumentException("Objeto deve ser do tipo Usuario.");
+        }
+        Usuario usuario = (Usuario) objeto;
+
         String sql = "UPDATE tb_usuario SET nome = ?, email = ?, senha = ? WHERE id = ?";
-        try (Connection conn = connectionFactory.recuperaConexao();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
 
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getEmail());
             ps.setString(3, usuario.getSenha());
             ps.setInt(4, usuario.getId());
             ps.executeUpdate();
-
         } catch (SQLException e) {
-            System.err.println("Erro ao atualizar usuário: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
-
-    public void deletar(int id) {
+    @Override
+    public void excluir(int id) {
         String sql = "DELETE FROM tb_usuario WHERE id = ?";
-        try (Connection conn = connectionFactory.recuperaConexao();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
 
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
-            ps.executeUpdate();
+            int linhasAfetadas = ps.executeUpdate();
 
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Falha ao deletar: usuário com ID " + id + " não encontrado.");
+            }
         } catch (SQLException e) {
-            System.err.println("Erro ao deletar usuário: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

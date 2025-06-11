@@ -3,6 +3,7 @@ package Alerta_Cidadao.model;
 import Alerta_Cidadao.enums.TipoReacao;
 import Alerta_Cidadao.interfaces.I_Reagivel;
 
+import java.util.ArrayList; // Adicionar esta linha
 import java.util.List;
 import java.util.Date;
 
@@ -19,10 +20,10 @@ public class Comentario implements I_Reagivel {
         this.usuario = usuario;
         this.texto = texto;
         this.dataHora = dataHora;
-        this.IdAlerta = IdAlerta;
+        this.reacoes = new ArrayList<>(); // Adicionar esta linha para inicializar a lista
     }
     public Comentario(){
-
+        this.reacoes = new ArrayList<>(); // Inicializar aqui também
     }
 
 

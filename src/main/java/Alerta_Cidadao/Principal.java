@@ -11,10 +11,10 @@ public class Principal {
     public static void main(String[] args){
 
 
-        Usuario criadorDoAlerta = new Usuario();
-        Usuario outroUsuario = new Usuario();
+        Usuario criadorDoAlerta = new Usuario(1, "Hugo", "hg@email.com", "senha1");
+        Usuario outroUsuario = new Usuario(2, "Eduardo", "dus@email.com", "senha2");
         Localizacao localDoFato = new Localizacao(154, -22.90, -43.17, "Rua Principal", 5);
-        Usuario CriadorAlerta2 = new Usuario();
+        Usuario CriadorAlerta2 = new Usuario(3, "Hugo Watzl", "hugo@email.com", "senha3");
         Localizacao Local2 = new Localizacao(23,-33.12, -86.01, "Av Romero", 1002);
 
         //  alerta

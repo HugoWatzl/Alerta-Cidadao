@@ -8,7 +8,6 @@ import Alerta_Cidadao.interfaces.I_Reagivel;
 import java.sql.Time;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Alerta implements I_Reagivel {
@@ -36,7 +35,7 @@ public class Alerta implements I_Reagivel {
         this.votacoes = new ArrayList<>();
         this.reacoes = new ArrayList<>();
         this.comentarios = new ArrayList<>();
-        this.estaAtivo = true; // Alerta é ativo  ao ser criado
+        this.estaAtivo = true; // Alerta é ativo ao ser criado
     }
 
     public Alerta() {

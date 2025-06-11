@@ -10,12 +10,12 @@ public class ConnectionFactory {
         try {
             String sgbd = "mysql";
             String endereco = "localhost";
-            String bd = "slertacidadaoo_db";
+            String bd = "alertacidadao_db";
             String usuario = "root";
             String senha = "senha";
 
             Connection connection = DriverManager.getConnection(
-                    "jdbc:" + sgbd + "://" + endereco + "/" + bd, usuario, senha);
+                    "jdbc:" + sgbd + "://" + 3308 + "/" + bd, usuario, senha);
 
             return connection;
         } catch (SQLException e) {
