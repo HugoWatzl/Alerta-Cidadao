@@ -3,7 +3,7 @@ package Alerta_Cidadao.model;
 import Alerta_Cidadao.enums.TipoReacao;
 import Alerta_Cidadao.interfaces.I_Reagivel;
 
-import java.util.ArrayList; // Adicionar esta linha
+import java.util.ArrayList; 
 import java.util.List;
 import java.util.Date;
 
