@@ -30,6 +30,6 @@ Ajudar a população a evitar áreas perigosas com base em informações compart
 
 ---
 
-## download documentação pdf 
+## Download documentação pdf 
 
 https://pdf.ac/35Jsw9
