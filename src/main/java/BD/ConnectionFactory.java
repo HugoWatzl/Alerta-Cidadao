@@ -15,14 +15,14 @@ public class ConnectionFactory {
             String usuario = "root";
             String senha = "senha";
 
-            // URL de conexão com a porta incluída
+           
             String url = "jdbc:" + sgbd + "://" + endereco + ":" + porta + "/" + bd;
 
             Connection connection = DriverManager.getConnection(url, usuario, senha);
 
             return connection;
         } catch (SQLException e) {
-            // É uma boa prática imprimir o erro para facilitar a depuração
+            
             System.err.println("Falha na conexão com o banco de dados: " + e.getMessage());
             throw new RuntimeException(e);
         }
