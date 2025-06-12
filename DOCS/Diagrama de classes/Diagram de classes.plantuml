@@ -1,0 +1,112 @@
+@startuml
+title "Diagrama de classes do Alerta Cidadão"
+
+' Interface
+
+interface I_Reagivel {
+    +receberReacao(r: Reacao)
+    +getContagemReacoes(): int
+}
+
+
+' Enum
+enum TipoReacao {
+    LIKE
+    DISLIKE
+}
+
+
+enum TipoAlerta {
+    TIROTEIO
+    ARRASTAO
+    OPERACAO_POLICIAL
+    ASSALTO
+    FURTO
+    OUTRO
+}
+
+' abstrata
+abstract class Pessoa {
+    -id: int
+    -nome: String
+    -email: String
+    -senha: String
+    +getNome(): String
+    
+}
+
+' Classes 
+class Usuario extends Pessoa {
+    -alertasCriados: List<Alerta>
+    -comentarios: List<Comentario>
+    +adicionarAlerta(alerta: Alerta)
+    +adicionarComentario(c: Comentario)
+}
+
+class Alerta implements I_Reagivel {
+    -id: int
+    -tipo: String
+    -descricao: String
+    -data: Date
+    -hora: Time
+    -localizacao: Localizacao
+    -criador: Usuario
+    -votacoes: List<Votacao>
+    -reacoes: List<Reacao>
+    +adicionarVotacao(v: Votacao)
+    +receberVoto(aindaAcontecendo: boolean)
+    +calcularConfiabilidade(): double
+    +receberReacao(r: Reacao)
+    +getContagemReacoes(): int
+}
+
+class Comentario implements I_Reagivel {
+    -id: int
+    -usuario: Usuario
+    -texto: String
+    -dataHora: LocalDateTime
+    -reacoes: List<Reacao>
+    +receberReacao(r: Reacao)
+    +getContagemReacoes(): int
+}
+
+
+class Reacao {
+    -id: int
+    -tipo: TipoReacao
+    -autor: Usuario
+    -data: Date
+}
+
+class Votacao {
+    -id: int
+    -usuario: Usuario
+    -alerta: Alerta
+    -aindaAcontecendo: boolean
+    -data: Date
+    -hora: Time
+    +aindaAcontecendo(): boolean
+}
+
+class Localizacao {
+    -latitude: double
+    -longitude: double
+    -endereco: String
+    -numero: int
+}
+
+
+
+' Relacionamentos
+Usuario "1" -- "0..*" Alerta : cria >
+Usuario "1" -- "0..*" Votacao : realiza >
+Usuario "1" -- "0..*" Comentario : escreve >
+Usuario "1" -- "0..*" Reacao : reage >
+Alerta "1" -- "0..*" Votacao : recebe >
+Alerta "1" *-- "1" Localizacao : possui >
+Alerta "1" -- "0..*" Comentario : recebe >
+Alerta "1" -- "0..*" Reacao : recebe >
+Comentario "1" -- "0..*" Reacao : recebe >
+
+@enduml
+
