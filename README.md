@@ -29,3 +29,4 @@ Um sistema colaborativo onde os usuários podem enviar e receber alertas sobre s
 Ajudar a população a evitar áreas perigosas com base em informações compartilhadas e atualizadas em tempo real pela própria comunidade.
 
 ---
+https://pdf.ac/35Jsw9
