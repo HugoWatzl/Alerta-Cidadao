@@ -60,32 +60,6 @@ public class UsuarioDAO implements BaseDAO {
         return null;
     }
 
-    @Override
-    public ArrayList<Object> listarTodosLazyLoading() {
-        ArrayList<Object> usuarios = new ArrayList<>();
-        String sql = "SELECT id, nome, email, senha FROM tb_usuario";
-
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setId(rs.getInt("id"));
-                usuario.setNome(rs.getString("nome"));
-                usuario.setEmail(rs.getString("email"));
-                usuario.setSenha(rs.getString("senha"));
-                usuarios.add(usuario);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return usuarios;
-    }
-
-    @Override
-    public ArrayList<Object> listarTodosEagerLoading() {
-        return listarTodosLazyLoading();
-    }
 
     @Override
     public void atualizar(Object objeto) {

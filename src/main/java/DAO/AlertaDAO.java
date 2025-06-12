@@ -114,41 +114,4 @@ public class AlertaDAO implements BaseDAO {
         }
     }
 
-    @Override
-    public ArrayList<Object> listarTodosLazyLoading() {
-        ArrayList<Object> alertas = new ArrayList<>();
-        String sql = "SELECT id, tipo, descricao, data, hora, esta_ativo, id_localizacao, id_criador FROM tb_alerta";
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Alerta alerta = new Alerta();
-                alerta.setId(rs.getInt("id"));
-                alerta.setTipo(Enum.valueOf(Alerta_Cidadao.enums.TipoAlerta.class, rs.getString("tipo")));
-                alerta.setDescricao(rs.getString("descricao"));
-                alerta.setData(rs.getDate("data"));
-                alerta.setHora(rs.getTime("hora"));
-                alerta.setEstaAtivo(rs.getBoolean("esta_ativo"));
-
-                Localizacao localizacao = new Localizacao();
-                localizacao.setId(rs.getInt("id_localizacao"));
-                alerta.setLocalizacao(localizacao);
-
-                Usuario criador = new Usuario();
-                criador.setId(rs.getInt("id_criador"));
-                alerta.setCriador(criador);
-
-                alertas.add(alerta);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return alertas;
-    }
-
-    @Override
-    public ArrayList<Object> listarTodosEagerLoading() {
-        System.out.println("Ainda não implementado, usando Lazy Loading como padrão.");
-        return listarTodosLazyLoading();
-    }
 }

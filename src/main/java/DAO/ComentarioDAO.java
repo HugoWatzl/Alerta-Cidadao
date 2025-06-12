@@ -130,26 +130,5 @@ public class ComentarioDAO implements BaseDAO {
         return comentarios;
     }
 
-    @Override
-    public ArrayList<Object> listarTodosLazyLoading() {
-        ArrayList<Object> comentarios = new ArrayList<>();
-        String sql = "SELECT id, texto, data_hora, id_usuario, id_alerta FROM tb_comentario";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Comentario comentario = new Comentario();
-                comentario.setId(rs.getInt("id"));
-                comentarios.add(comentario);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return comentarios;
-    }
 
-    @Override
-    public ArrayList<Object> listarTodosEagerLoading() {
-        System.out.println("Ainda não implementado, usando Lazy Loading como padrão.");
-        return listarTodosLazyLoading();
-    }
 }
