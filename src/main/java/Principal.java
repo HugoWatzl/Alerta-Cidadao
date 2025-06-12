@@ -174,7 +174,7 @@ public class Principal {
             usuarioDAO.salvar(usuarioHugo);
             System.out.println("Usuário salvo: " + usuarioAna.getNome() + " (ID: " + usuarioAna.getId() + ")");
 
-            // Ana cria um alerta
+            // cria um alerta
             Localizacao localizacao = new Localizacao();
             localizacao.setId(1);
             Alerta alertaDaAna = new Alerta();
@@ -189,8 +189,8 @@ public class Principal {
             System.out.println(usuarioAna.getNome() + " criou um alerta com ID: " + alertaDaAna.getId());
 
 
-            System.out.println("\n--- 2. DEMONSTRANDO: buscarPorId() ---");
-            // Buscando o usuário Beto pelo ID para confirmar a criação
+            System.out.println("\n- 2. DEMONSTRANDO: buscarPorId() -");
+            
             Usuario betoDoBanco = (Usuario) usuarioDAO.buscarPorId(usuarioBeto.getId());
             if (betoDoBanco != null) {
                 System.out.println("Busca por ID bem-sucedida: Encontrado " + betoDoBanco.getNome());
@@ -199,21 +199,21 @@ public class Principal {
             }
 
 
-            System.out.println("\n--- 3. DEMONSTRANDO: atualizar() ---");
+            System.out.println("\n-- 3. DEMONSTRANDO: atualizar() ");
             System.out.println("Nome de Betin ANTES da atualização: " + betoDoBanco.getNome());
-            betoDoBanco.setNome("Roberto"); // Mudando o nome
+            betoDoBanco.setNome("Roberto"); 
             usuarioDAO.atualizar(betoDoBanco);
-            // Buscando novamente para confirmar a atualização
+        
             Usuario betoAtualizado = (Usuario) usuarioDAO.buscarPorId(betoDoBanco.getId());
             System.out.println("Nome de Beto DEPOIS da atualização: " + betoAtualizado.getNome());
 
 
-            System.out.println("\n--- 4. DEMONSTRANDO: excluir() ---");
+            System.out.println("\n- 4. DEMONSTRANDO: excluir() ");
             System.out.println("Excluindo o usuário '" + usuarioAna.getNome() + "' (ID: " + usuarioAna.getId() + ")");
             // Para excluir Ana, primeiro precisamos excluir os alertas que ela criou.
             alertaDAO.excluir(alertaDaAna.getId());
             usuarioDAO.excluir(usuarioAna.getId());
-            // Tentando buscar Ana para confirmar a exclusão
+            // buscar Ana para confirmar a exclusão
             Usuario anaDoBanco = (Usuario) usuarioDAO.buscarPorId(usuarioAna.getId());
             if (anaDoBanco == null) {
                 System.out.println("Confirmação: Usuário '" + usuarioAna.getNome() + "' não foi encontrado. Exclusão funcionou.");
